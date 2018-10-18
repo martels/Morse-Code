@@ -18,18 +18,22 @@ public:
 	int getCode() const {return code;};
 	void setAlpha(char a) {alpha = a;};
 	void setCode(int c) {code = c;}; 
+	friend ostream& operator<< (ostream& ostr, const MorseElement& rhs);
 };
 
 
-class MorseHash
+
+class MorseTable
 {
 private:
 	MorseElement table[34];
 public:
-	MorseHash();
+	MorseTable();
 	int hashToMorse(char key);
 	char hashToAlpha(int msg);
+	void printTable();
 //char charCertify(char key);
 };
+
 
 #endif
