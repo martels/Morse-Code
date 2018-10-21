@@ -5,19 +5,19 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class MorseElement
 {
-private:
+public:
 	char alpha;
 	int code;
-public:
 	char getAlpha() const {return alpha;};
 	int getCode() const {return code;};
-	void setAlpha(char a) {alpha = a;};
-	void setCode(int c) {code = c;}; 
+//	void setAlpha(char a) {alpha = a;};
+//	void setCode(int c) {code = c;}; 
 	friend ostream& operator<< (ostream& ostr, const MorseElement& rhs);
 };
 
@@ -26,12 +26,13 @@ public:
 class MorseTable
 {
 private:
-	MorseElement table[34];
+	MorseElement table[37];
 public:
 	MorseTable();
 	int hashToMorse(char key);
 	char hashToAlpha(int msg);
 	void printTable();
+	vector<int> stream(string msg);
 //char charCertify(char key);
 };
 

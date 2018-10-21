@@ -5,12 +5,12 @@ using namespace std;
 MorseTable::MorseTable()
 {
 	char alphabet[37] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ' '};
-	int code[37] = {120, 21110, 21210, 2110, 10, 11210, 2210, 11110, 110, 12220, 2120, 12110, 220, 210, 2220, 12210, 22120, 1210, 1110, 20, 1120, 11120, 1220, 21120, 21220, 22110, 12220, 112220, 111220, 111120, 111110, 211110, 221110, 222110, 222210, 22222, 0};
+	int code[37] = {12, 2111, 2121, 211, 1, 1121, 221, 1111, 11, 1222, 212, 1211, 22, 21, 222, 1221, 2212, 121, 111, 2, 112, 1112, 122, 2112, 2122, 2211, 1222, 11222, 11122, 11112, 11111, 21111, 22111, 22211, 22221, 22222, 00};
 	MorseElement temp;
 	for(int i = 0; i < 37; i++)
 	{
-		temp.setAlpha(alphabet[i]);
-		temp.setCode(code[i]);
+		temp.alpha = alphabet[i];
+		temp.code = code[i];
 		this->table[i] = temp;
 	}
 }
@@ -20,9 +20,9 @@ int MorseTable::hashToMorse(char key)
 //	key = charCertify(key);
 	for(int i = 0; i < 37; i++)
 	{
-		if(table[i].getAlpha() == key)
+		if(table[i].alpha == key)
 		{
-			return table[i].getCode();
+			return table[i].code;
 		}
 	}
 	return -1;
@@ -32,9 +32,9 @@ char MorseTable::hashToAlpha(int msg)
 {
 	for(int i = 0; i < 37; i++)
 	{
-		if(table[i].getCode() == msg)
+		if(table[i].code == msg)
 		{
-			return table[i].getAlpha();
+			return table[i].alpha;
 		}
 	}
 	return -1;
@@ -51,11 +51,21 @@ void MorseTable::printTable()
 
 ostream& operator<< (ostream& ostr, const MorseElement& rhs)
 {
-	ostr << "AlphaNumeric: " << rhs.getAlpha() << ", Numeric reprentation of Morse code: " << rhs.getCode();
+	ostr << "AlphaNumeric: " << rhs.alpha << ", Numeric reprentation of Morse code: " << rhs.code;
 	return ostr;
 }
 
+vector<int> MorseTable::stream(string msg)
+{
+	vector<int> code;
+	int length = (int) msg.length();
 
+	for(int i = 0; i < length; i++)
+	{
+		code.push_back(this->hashToMorse(msg[i]));
+	}
+	return code;
+}
 
 // char MorseTable::charCertify(char key)
 // {
