@@ -1,0 +1,2 @@
+MorseDriver.o: MorseDriver.cpp
+	g++ -Wall -c MorseDriver.cpp
